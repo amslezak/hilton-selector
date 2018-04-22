@@ -1,16 +1,32 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from "react"
+import ReactDOM from "react-dom"
 
-import { Provider } from "react-redux";
-import App from "./App";
-import configureStore from "./store/configureStore";
-import registerServiceWorker from "./registerServiceWorker";
+import App from "./App"
+import registerServiceWorker from "./registerServiceWorker"
 
-const store = configureStore();
+import { Provider } from "react-redux"
+import { createStore } from "redux"
+import { persistStore, persistReducer } from "redux-persist"
+import { PersistGate } from "redux-persist/integration/react"
+import storage from "redux-persist/lib/storage"
+import allReducers from "./reducers"
+
+const persistConfig = {
+  key: "root",
+  storage
+}
+
+const persistedReducer = persistReducer(persistConfig, allReducers)
+
+let store = createStore(persistedReducer)
+let persistor = persistStore(store)
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
-);
-registerServiceWorker();
+)
+registerServiceWorker()
