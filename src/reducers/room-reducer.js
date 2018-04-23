@@ -38,9 +38,11 @@ const roomReducer = (state = rooms, { type, id, enabled, defaults, count }) => {
           room.children = newState[0].children
           return (room.enabled = true)
         }
-        room.enabled = false
-        room.adult = defaults.adult
-        return (room.children = defaults.children)
+        if (index >= id - 1) {
+          room.enabled = false
+          room.adult = defaults.adult
+          return (room.children = defaults.children)
+        }
       })
       return newState
     case UPDATE_ADULT:

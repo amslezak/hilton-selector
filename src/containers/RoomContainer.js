@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Flex, Box, Button } from "rebass"
+import { Flex, Box, Button, Container } from "rebass"
 
 class RoomContainer extends Component {
   render() {
@@ -7,9 +7,11 @@ class RoomContainer extends Component {
       <React.Fragment>
         <Flex>{this.props.children}</Flex>
         <Flex justifyContent="center">
-          <Box w={1}>
-            <Button>Submit</Button>
-          </Box>
+          <Container>
+            <Box w={1}>
+              <Button>Submit</Button>
+            </Box>
+          </Container>
         </Flex>
       </React.Fragment>
     )
